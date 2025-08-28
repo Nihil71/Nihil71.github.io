@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Nihil 笔记详情">
+    <meta name="author" content="Nihil">
+    <title>笔记详情 - NIHIL</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="vendor/devicons/css/devicons.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/resume.css" rel="stylesheet">
+    
+    <!-- 内联样式 -->
+    <style>
+        /* css/note-detail.css */
+        .note-card {
+            background: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+
+        .note-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .note-title {
+            font-family: 'Saira Extra Condensed', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #3d3d46;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-subtitle {
+            font-size: 1rem;
+            color: #3d3d46;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .note-meta {
+            font-size: 0.9rem;
+            color: #3d3d46;
+        }
+
+        .toggle-icon {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .note-content {
+            padding: 1.5rem;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .note-outline {
+            display: none;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .outline-item {
+            padding: 1rem 0;
+            border-bottom: 1px dashed #e9ecef;
+        }
+
+        .outline-item:last-child {
+            border-bottom: none;
+        }
+
+        .outline-link {
+            color: #3d3d46;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .outline-link:hover {
+            text-decoration: underline;
+            color: #1045b8;
+        }
+
+        .outline-comment {
+            font-size: 0.9rem;
+            color: #3d3d46;
+            font-style: italic;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.25rem;
+            background-color: #6B6B7C;
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #1045b8;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #6B6B7C;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .back-link i {
+            margin-right: 0.5rem;
+        }
+
+        .filter-tags {
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: #e9ecef;
+            color: #495057;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background-color: #6B6B7C;
+            color: white;
+        }
+
+        .tag.active {
+            background-color: #6B6B7C;
+            color: white;
+        }
+
+        .tag-count {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0 0.5rem;
+            border-radius: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .note-title {
+                font-size: 1.5rem;
+            }
+            
+            .note-header {
+                padding: 1rem;
+            }
+            
+            .note-content, .note-outline {
+                padding: 1rem;
+            }
+        }
+        
+        /* 隐藏下载按钮的样式 */
+        .download-btn, .btn-download, [onclick*="download"] {
+            display: none !important;
+        }
+        
+        /* 章节标题加粗 */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: bold !important;
+        }
+        
+        .mb-0, .mb-5, .subheading {
+            font-weight: bold !important;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+        <a class="navbar-brand js-scroll-trigger" href="index.html">
+            <span class="d-block d-lg-none">Catstars</span>
+            <span class="d-none d-lg-block">
+                <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/avatar.jpg" alt="">
+            </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="index.html#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="index.html#experience">Note</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="index.html#education">Article</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="index.html#interests">Interest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="index.html#awards">敬请期待</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Notes Detail Section -->
+    <div class="container-fluid p-0">
+        <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="notes-detail">
+            <div class="my-auto">
+                <div class="back-link mb-4">
+                    <a href="index.html#experience" class="text-primary">
+                        <i class="fas fa-arrow-left"></i> 返回笔记列表
+                    </a>
+                </div>
+                
+                <h2 class="mb-0">详细
+                    <span class="text-primary">笔记</span>
+                </h2>
+                <div class="subheading mb-5">点击笔记查看详细内容</div>
+                
+                <!-- 标签筛选 -->
+                <div class="filter-tags" id="filterTags">
+                    <span class="tag active" data-category="all">全部笔记</span>
+                    <!-- 标签将由JavaScript动态生成 -->
+                </div>
+                
+                <div class="container-fluid">
+                    <div class="notes-container" id="notesContainer">
+                        <!-- 示例卡片，用于测试显示效果 -->
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3 class="note-title">示例笔记标题</h3>
+                                <div class="note-subtitle">示例笔记副标题</div>
+                                <div class="note-meta">2023-01-01</div>
+                                <div class="toggle-icon">▼</div>
+                            </div>
+                            <div class="note-content">
+                                <p>这是示例笔记的内容部分。在GitHub Pages上应该能看到带有圆角和阴影的卡片效果。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="note-card">
+                            <div class="note-header">
+                                <h3 class="note-title">第二个示例笔记</h3>
+                                <div class="note-subtitle">另一个副标题</div>
+                                <div class="note-meta">2023-01-02</div>
+                                <div class="toggle-icon">▼</div>
+                            </div>
+                            <div class="note-content">
+                                <p>这是第二个示例笔记的内容部分，用于验证卡片样式是否正常显示。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/resume.min.js"></script>
+    <script src="js/notes.js"></script>
+    <script src="js/notetag.js"></script>
+</body>
+</html>
