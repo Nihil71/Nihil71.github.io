@@ -80,9 +80,11 @@ function renderNotes(notesToRender) {
                         const formattedComment = item.comment.replace(/\n/g, '<br>');
                         return `
                             <div class="outline-item">
-                                <a href="note/${note.id}/${encodeURIComponent(item.title)}.pdf" class="outline-link" download>
+                                <a href="note/${note.id}/${encodeURIComponent(item.title)}.pdf" 
+                                    class="outline-link" 
+                                    target="_blank">
                                     ${item.title}
-                                    <button class="download-btn float-right">下载</button>
+                                    <button class="download-btn float-right">查看</button>
                                 </a>
                                 <div class="outline-comment">${formattedComment}</div>
                             </div>
@@ -113,23 +115,7 @@ function toggleOutline(noteId) {
     }
 }
 
-// 真实下载功能
-function downloadNote(noteId, title) {
-    // 构造下载链接
-    const filename = encodeURIComponent(title);
-    const url = `note/${noteId}/${filename}.pdf`;
-    
-    // 创建一个隐藏的iframe来触发下载
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
-    
-    // 一段时间后移除iframe
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-    }, 1000);
-}
+
 
 // 页面加载完成后渲染笔记和标签
 document.addEventListener('DOMContentLoaded', function() {
