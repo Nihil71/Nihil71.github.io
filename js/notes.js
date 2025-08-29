@@ -13,5 +13,18 @@ const notes = [
             { title: "1 Mathematical Preliminaries", comment: "" }
 
         ]
+    },
+    {
+        id: 2,
+        title: "Signals and Systems",
+        subtitle: "参考书目：《Signals and Systems》Alan V. Oppenheim",
+        content: "",
+        category: "电子信息",
+        date: "2025-08-29",
+        site: "",
+        outline: [
+            { title: "1 Signals and Systems", comment: "" }
+
+        ]
     }
 ];
