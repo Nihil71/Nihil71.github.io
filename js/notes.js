@@ -23,8 +23,9 @@ const notes = [
         date: "2025-08-29",
         site: "",
         outline: [
-            { title: "1 Signals and Systems", comment: "" }
-
+            { title: "1 Signals and Systems", comment: "" },
+            { title: "2 Linear Time-Invariant Systems", comment: "" }
         ]
     }
 ];
+
