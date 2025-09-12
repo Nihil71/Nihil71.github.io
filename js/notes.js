@@ -24,8 +24,9 @@ const notes = [
         site: "",
         outline: [
             { title: "1 Signals and Systems", comment: "" },
-            { title: "2 Linear Time-Invariant Systems", comment: "" }
+            { title: "2 Linear Time-Invariant Systems", comment: "" },
+            { title: "3 Fourier Series Representation of Periodic Signals", comment: "" }
+
         ]
     }
 ];
-
