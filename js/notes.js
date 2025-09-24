@@ -26,7 +26,8 @@ const notes = [
             { title: "1 Signals and Systems", comment: "" },
             { title: "2 Linear Time-Invariant Systems", comment: "" },
             { title: "3 Fourier Series Representation of Periodic Signals", comment: "" },
-            { title: "4 The Continuous-Time Fourier Transform", comment: "" }
+            { title: "4 The Continuous-Time Fourier Transform", comment: "" },
+            { title: "5 The Discrete-Time Fourier Transform", comment: "" }           
 
         ]
     }
